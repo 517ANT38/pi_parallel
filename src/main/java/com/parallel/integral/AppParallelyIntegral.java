@@ -13,13 +13,13 @@ public class AppParallelyIntegral {
         long numSteps = 500000000;
         int cntThreads = 100;
         BigDecimal step = new BigDecimal(1./numSteps);
-        long cntStepsPerThread= numSteps / cntThreads;
+        long cntStepsPerThread= Math.round((numSteps / cntThreads) / 100);
 
         List<Future<BigDecimal>> list = new ArrayList<>();
         ExecutorService e = Executors.newFixedThreadPool(cntThreads);
 
         for (int i = 0; i < cntThreads; i++) {
-            
+            System.out.printf("%d %d\n",i*cntStepsPerThread,(i+1)*cntStepsPerThread);
             ArgsThread a = new ArgsThread(
                 i*cntStepsPerThread,
                 (i+1)*cntStepsPerThread,

@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
 
 public class AppParallel {
   public static void main(String[] args) throws InterruptedException, ExecutionException   {
-    int n = 16;
+    int n = 1000;
     ExecutorService e = Executors.newFixedThreadPool(n);
     List<Future<Double>> list = new ArrayList<>();
     for (int i = 0; i < n; i++) {
