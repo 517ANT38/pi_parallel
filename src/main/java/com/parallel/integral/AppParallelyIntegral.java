@@ -10,16 +10,15 @@ import java.util.concurrent.Future;
 
 public class AppParallelyIntegral {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        long numSteps = 500000000;
-        int cntThreads = 100;
+        long numSteps = 999999999;
+        int cntThreads = 1000;
         BigDecimal step = new BigDecimal(1./numSteps);
         long cntStepsPerThread= Math.round((numSteps / cntThreads) / 100);
 
         List<Future<BigDecimal>> list = new ArrayList<>();
-        ExecutorService e = Executors.newFixedThreadPool(cntThreads);
+        ExecutorService e = Executors.newVirtualThreadPerTaskExecutor();
 
         for (int i = 0; i < cntThreads; i++) {
-            System.out.printf("%d %d\n",i*cntStepsPerThread,(i+1)*cntStepsPerThread);
             ArgsThread a = new ArgsThread(
                 i*cntStepsPerThread,
                 (i+1)*cntStepsPerThread,
