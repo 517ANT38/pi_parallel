@@ -27,7 +27,7 @@ public class MainCalsPi {
 
         CalsPi calsPi = new CalsPi(Executors.newVirtualThreadPerTaskExecutor());
 
-        var res = calsPi.cals(5000, 3);
+        var res = calsPi.cals(10000, 3);
 
         System.out.println(res);
 
