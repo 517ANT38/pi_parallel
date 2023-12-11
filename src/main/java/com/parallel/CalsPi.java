@@ -25,7 +25,7 @@ public class CalsPi {
         BigDecimal bg = new BigDecimal(0.0);
 
         int s = 0;
-        int k = Math.round(count * 0.1f);
+        int k = Math.round(count * 0.0001f);
         int j = 0;
 
         for (int i = k; i < count; i += k) {
@@ -39,7 +39,7 @@ public class CalsPi {
             var d = Math.round((count - i)*0.1f);
             
             if(j == 3 && k > d){
-                k = k - Math.round(k*0.3f);
+                k = k - Math.round(k*0.03f);
                 j = 0;
             }
                        

@@ -25,9 +25,9 @@ public class MainCalsPi {
 
         int n = Runtime.getRuntime().availableProcessors() - 1;
 
-        CalsPi calsPi = new CalsPi(Executors.newVirtualThreadPerTaskExecutor());
+        CalsPi calsPi = new CalsPi(Executors.newFixedThreadPool(n));
 
-        var res = calsPi.cals(10000, 3);
+        var res = calsPi.cals(100000, 3);
 
         System.out.println(res);
 
