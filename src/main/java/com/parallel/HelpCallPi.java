@@ -19,6 +19,7 @@ public class HelpCallPi implements Callable<BigDecimal> {
     @Override
     public BigDecimal call() throws Exception {
         var res = new BigDecimal(0.0);
+        
         for (int i = start; i < end; i++) {
             BigDecimal pow16 = BigDecimal.ONE
                             .divide(BigDecimal.valueOf(16)
@@ -33,7 +34,7 @@ public class HelpCallPi implements Callable<BigDecimal> {
             
             res = res.add(pow16.multiply(f1.subtract(f2).subtract(f3).subtract(f4)));
         }
-        System.out.println("done "+start+" "+end);
+       
         return res;
     }
     
