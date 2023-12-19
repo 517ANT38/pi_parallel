@@ -1,12 +1,14 @@
 package com.parallel.montekarlo;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PiCalculation {
     public static void main(String[] args) throws InterruptedException {
-        long numPoints = 500000000; // Количество точек для генерации
-        int numThreads = Runtime.getRuntime().availableProcessors()*10; // Количество доступных ядер процессора
-        System.out.println(numThreads);
+        long numPoints = 999999999; // Количество точек для генерации
+        int numThreads = Runtime.getRuntime().availableProcessors() - 1; // Количество доступных ядер процессора
+        
         PointCounter[] counters = new PointCounter[numThreads];
         Thread[] threads = new Thread[numThreads];
 
@@ -21,12 +23,14 @@ public class PiCalculation {
         }
 
         // Суммирование результата всех потоков
-        long totalPointsInsideCircle = 0;
+        BigDecimal totalPointsInsideCircle = new BigDecimal(0);
         for (int i = 0; i < numThreads; i++) {
-            totalPointsInsideCircle += counters[i].getPointsInsideCircle();
+             totalPointsInsideCircle = totalPointsInsideCircle.add(new BigDecimal(counters[i]
+                                        .getPointsInsideCircle()));
         }
 
-        double pi = 4.0 * totalPointsInsideCircle / numPoints;
+        final BigDecimal bigDecimal = new BigDecimal(4);
+        BigDecimal pi = bigDecimal.multiply(totalPointsInsideCircle.divide(BigDecimal.valueOf(numPoints),MathContext.DECIMAL128),MathContext.DECIMAL128);
         System.out.println("Pi: " + pi);
     }
 }

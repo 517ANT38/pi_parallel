@@ -10,11 +10,15 @@ import java.util.concurrent.Future;
 
 public class AppParallel {
   public static void main(String[] args) throws InterruptedException, ExecutionException   {
-    int n = Runtime.getRuntime().availableProcessors() - 1;
-    ExecutorService e = Executors.newFixedThreadPool(n);
+    int tn = Runtime.getRuntime().availableProcessors() - 1;
+    int n = 10000;
+    ExecutorService e = Executors.newFixedThreadPool(tn);
     List<Future<BigDecimal>> list = new ArrayList<>();
-    for (int i = 1; i < n+1; i++) {
-        Future<BigDecimal> f = e.submit(new СalculationsPi(i,1));        
+    int tmp = 0;
+    for (int i = 1,j=0; i < n; i++) {
+        tmp = j;
+        j+=100000;
+        Future<BigDecimal> f = e.submit(new СalculationsPi(tmp,j));        
         list.add(f);
     }
     BigDecimal pi = new BigDecimal(0.0);

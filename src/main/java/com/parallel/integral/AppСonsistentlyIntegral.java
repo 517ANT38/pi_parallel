@@ -6,7 +6,7 @@ package com.parallel.integral;
 public class AppСonsistentlyIntegral {
 
     public static void main(String[] args) {
-        long cntSteps = 500000000;
+        long cntSteps = 10000;
         double step = 1./cntSteps;
         double pi = 0;
         double sum = 0.0; 
@@ -20,7 +20,7 @@ public class AppСonsistentlyIntegral {
         pi = sum*step;
 
         System.out.printf("%.15g \n", pi);
-        System.out.println(Math.abs(Math.PI - pi));
+        // System.out.println(Math.abs(Math.PI - pi));
     }
 
 }

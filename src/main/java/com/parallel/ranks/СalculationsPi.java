@@ -6,21 +6,19 @@ import java.util.concurrent.Callable;
 
 public class СalculationsPi implements Callable<BigDecimal> {
 
-    private final int num;
+    private final int st;
+    private final int ed;
+   
 
-    private final int nt;
-
-    private static final long steps = 500000;
-
-    public СalculationsPi(int num, int nt) {
-        this.num = num;
-        this.nt = nt;
+    public СalculationsPi(int st,int ed) {
+        this.st = st;
+        this.ed = ed;
     }
 
     @Override
     public BigDecimal call() throws Exception {
         BigDecimal pi = new BigDecimal(0.0);
-        for (long i = num; i < steps; i += nt) {            
+        for (long i = st; i < ed; i++ ) {            
             pi = pi.add(new BigDecimal(1.0/(i*4.0 + 1.0)));
             pi = pi.subtract(new BigDecimal(1.0/(i*4.0 + 3.0)));
         }

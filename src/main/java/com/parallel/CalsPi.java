@@ -32,13 +32,13 @@ public class CalsPi {
         
             
             fList.add(ex.submit(new HelpCallPi(eps, s, i)));        
-            System.out.printf("%d %d\n",s,i);
+            System.out.println(s+" "+i);
             s=i;         
             
             
             
-            if(Math.round(k*0.3f) != 0){
-                k=Math.round(k - k*0.3f);
+            if(Math.round(k*0.1f) != 0){
+                k=Math.round(k - 3);
             }
                        
            

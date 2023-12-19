@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 public class MainChudnovskyAlgorithm {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         var cp = new CalsPi(Executors.newFixedThreadPool(10));
-        System.out.println(cp.cals(10000));
+        System.out.println(cp.cals(1000));
         
         cp.shutdown();
     }
