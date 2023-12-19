@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 
 public class AppParallelyIntegral {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        long numSteps = 999999999;
+        long numSteps = 2000000000;
         int cntThreads = Runtime.getRuntime().availableProcessors();
         BigDecimal step = new BigDecimal(1./numSteps);
         long cntStepsPerThread= Math.round((numSteps / cntThreads));
