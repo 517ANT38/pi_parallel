@@ -2,7 +2,6 @@ package com.parallel.integral;
 
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.concurrent.Callable;
 
 public class СalculationsPi implements Callable<BigDecimal> {
@@ -19,19 +18,17 @@ public class СalculationsPi implements Callable<BigDecimal> {
     @Override
     public BigDecimal call() throws Exception {
 
-        BigDecimal x ;
-        BigDecimal sum = new BigDecimal(0);
-        BigDecimal step = aThread.getStep();
+        double x ;
+        double sum = 0;
+        double step = aThread.getStep();
 
         for (long i = aThread.getLeft(); i < aThread.getRight(); i++) {
-            x = step.multiply(new BigDecimal(i + .5));
-            sum = sum.add(new BigDecimal(4.0)
-            .divide(new BigDecimal(1)
-            .add(x.multiply(x)),
-            MathContext.DECIMAL128));
+            x = step * (i + .5);
+            sum = sum + 4.0/(1 + x * x);
+            
         }
 
-        return sum.multiply(step);
+        return new BigDecimal(sum * step);
 
     }
     

@@ -31,10 +31,7 @@ public class CalsPi {
         
             fList.add(ex.submit(new CallHelpPi(s, i,count)));
             s = i;
-            System.out.println(s+" "+i);
-            if(Math.round(k*0.3f) != 0){
-                k=Math.round(k - k*0.3f);
-            }
+           
         }
         for (Future<BigDecimal> future : fList) {
             bigDecimal = bigDecimal.add(future.get());

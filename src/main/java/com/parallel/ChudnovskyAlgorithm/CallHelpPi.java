@@ -4,15 +4,16 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.BigDecimal;
 import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 public class CallHelpPi implements Callable<BigDecimal>{
 
     private final int s;
     private final int e;
     private final int eps;
-    private static final BigDecimal B = BigDecimal.valueOf(545140134);
-    private static final BigDecimal A = BigDecimal.valueOf(13591409);
-    private static final BigDecimal C = BigDecimal.valueOf(640320).pow(3);
+    private static final int B = 545140134;
+    private static final int A = 13591409;
+    private static final BigDecimal C = BigDecimal.valueOf(640320);
 
     public CallHelpPi(int s, int e, int eps) {
         this.s = s;
@@ -24,41 +25,43 @@ public class CallHelpPi implements Callable<BigDecimal>{
 
     @Override
     public BigDecimal call() throws Exception {
-        var res = new BigDecimal(0.0);
-        
+        var res = new BigDecimal(0);
+        Function<Integer,Integer> abs = x -> (x > 0)? x : -x;
         for (int i = s; i < e; i++) {
-            var v1 = BigDecimal.ONE
-                .negate()
-                .pow(i)
-                .multiply(factTree(6*i)
-                .multiply(A.add(B.multiply(BigDecimal.valueOf(i),new MathContext(eps)))));
-            var v2 = factTree(i*3).multiply(factTree(i).pow(3)).multiply(C).pow(3).sqrt(new MathContext(eps));
-            var v3 = v1.divide(v2,new MathContext(eps));
-            res = res.add(v3);
+            var i3 = factTree(i) * factTree(i) * factTree(i);
+            var v1 = BigDecimal.valueOf(abs.apply(-1) * factTree(6 * i)*(B * i + A));
+            var v2 = C.pow(3*i+1);
+            v2 = v2.multiply(BigDecimal.valueOf(factTree(3*i)*i3));
+            v2 = v2.add(BigDecimal.valueOf(0.000000000001)); 
+            v1 = v1.divide(v2,MathContext.DECIMAL128);
+            res = res.add(v1);
+            
         }
-        return BigDecimal.ONE.divide(res,new MathContext(eps));
+       
+        return res;
+        // return BigDecimal.ONE.divide(res,new MathContext(eps));
     }
     
-    private  BigDecimal prodTree(int l, int r)
+    private  long prodTree(int l, int r)
     {
         if (l > r)
-            return BigDecimal.ONE;
+            return 1;
         if (l == r)
-            return BigDecimal.ONE;
+            return 1;
         if (r - l == 1)
-            return BigDecimal.valueOf(l * r);
+            return l * r;
         int m = (l + r) / 2;
-        return prodTree(l, m).multiply(prodTree(m + 1, r),new MathContext(eps));
+        return prodTree(l, m)*prodTree(m + 1, r);
     }
             
-    private BigDecimal factTree(int n)
+    private long factTree(int n)
     {
         if (n < 0)
-            return BigDecimal.ZERO;
+            return 0;
         if (n == 0)
-            return BigDecimal.ONE;
+            return 1;
         if (n == 1 || n == 2)
-            return BigDecimal.valueOf(n);
+            return n;
         return prodTree(2, n);
     }  
 

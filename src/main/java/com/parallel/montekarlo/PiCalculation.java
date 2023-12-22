@@ -14,7 +14,7 @@ public class PiCalculation {
     public static void main(String[] args) throws Exception {
         long numPoints = 999999999; // Количество точек для генерации
         int numThreads = Runtime.getRuntime().availableProcessors() - 1; // Количество доступных ядер процессора
-        int taskN = 100000;
+        long taskN = 100000;
         List<Future<Long>> list = new ArrayList<>();
         ExecutorService ex = Executors.newFixedThreadPool(numThreads);
 
@@ -56,15 +56,15 @@ class PointCounter implements Callable<Long> {
     @Override
     public Long call() throws Exception {
         long pointsInsideCircle = 0;
+        for (long j = 0; j < numPoints; j++)
+            for (long i = 0; i < numPoints; i++) {
+                double x = ThreadLocalRandom.current().nextDouble();
+                double y = ThreadLocalRandom.current().nextDouble();
 
-        for (long i = 0; i < numPoints; i++) {
-            double x = ThreadLocalRandom.current().nextDouble();
-            double y = ThreadLocalRandom.current().nextDouble();
-
-            if (x * x + y * y <= 1) {
-                pointsInsideCircle++;
+                if (x * x + y * y <= 1) {
+                    pointsInsideCircle++;
+                }
             }
-        }
         return pointsInsideCircle;
     }
 }

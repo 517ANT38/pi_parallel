@@ -17,7 +17,7 @@ public class AppParallel {
     int tmp = 0;
     for (int i = 1,j=0; i < n; i++) {
         tmp = j;
-        j+=100000;
+        j+=100;
         Future<BigDecimal> f = e.submit(new СalculationsPi(tmp,j));        
         list.add(f);
     }
