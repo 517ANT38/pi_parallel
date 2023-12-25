@@ -1,4 +1,4 @@
-package com.parallel.ChudnovskyAlgorithm;
+package com.parallel.chudnovskyAlgorithm;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -27,12 +27,12 @@ public class CallHelpPi implements Callable<BigDecimal>{
     public BigDecimal call() throws Exception {
         var res = new BigDecimal(0);
         Function<Integer,Integer> abs = x -> (x > 0)? x : -x;
-        for (int i = s; i < e; i++) {
-            var i3 = factTree(i) * factTree(i) * factTree(i);
-            var v1 = BigDecimal.valueOf(abs.apply(-1) * factTree(6 * i)*(B * i + A));
+        for (int i = s + 1 ; i < e; i++) {
+            var i3 = factTree(i).multiply(factTree(i)).multiply(factTree(i));
+            var v1 = BigDecimal.valueOf(abs.apply(-1)).multiply(factTree(6 * i)).multiply(BigDecimal.valueOf(B * i + A));
             var v2 = C.pow(3*i+1);
-            v2 = v2.multiply(BigDecimal.valueOf(factTree(3*i)*i3));
-            v2 = v2.add(BigDecimal.valueOf(0.000000000001)); 
+            v2 = v2.multiply(factTree(3*i).multiply(i3),MathContext.DECIMAL128);
+            // System.out.printf("res=%s, i=%d 3*i=%d\n",factTree(3*i).toString(),i,i*3);
             v1 = v1.divide(v2,MathContext.DECIMAL128);
             res = res.add(v1);
             
@@ -42,26 +42,26 @@ public class CallHelpPi implements Callable<BigDecimal>{
         // return BigDecimal.ONE.divide(res,new MathContext(eps));
     }
     
-    private  long prodTree(int l, int r)
+    private  BigDecimal prodTree(int l, int r)
     {
         if (l > r)
-            return 1;
+            return BigDecimal.ONE;
         if (l == r)
-            return 1;
+            return BigDecimal.ONE;
         if (r - l == 1)
-            return l * r;
+            return BigDecimal.valueOf(l * r);
         int m = (l + r) / 2;
-        return prodTree(l, m)*prodTree(m + 1, r);
+        return prodTree(l, m).multiply(prodTree(m + 1, r),new MathContext(eps));
     }
             
-    private long factTree(int n)
+    private BigDecimal factTree(int n)
     {
         if (n < 0)
-            return 0;
+            return BigDecimal.ZERO;
         if (n == 0)
-            return 1;
+            return BigDecimal.ONE;
         if (n == 1 || n == 2)
-            return n;
+            return BigDecimal.valueOf(n);
         return prodTree(2, n);
     }  
 

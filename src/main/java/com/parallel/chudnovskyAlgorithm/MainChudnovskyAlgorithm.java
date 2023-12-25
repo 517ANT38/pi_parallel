@@ -1,4 +1,4 @@
-package com.parallel.ChudnovskyAlgorithm;
+package com.parallel.chudnovskyAlgorithm;
 
 
 import java.util.concurrent.ExecutionException;

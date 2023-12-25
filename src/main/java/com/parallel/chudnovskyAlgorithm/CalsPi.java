@@ -1,4 +1,4 @@
-package com.parallel.ChudnovskyAlgorithm;
+package com.parallel.chudnovskyAlgorithm;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

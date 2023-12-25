@@ -28,7 +28,7 @@ public class СalculationsPi implements Callable<BigDecimal> {
             
         }
 
-        return new BigDecimal(sum * step);
+        return new BigDecimal(sum);
 
     }
     

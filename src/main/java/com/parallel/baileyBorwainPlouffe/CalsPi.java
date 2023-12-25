@@ -1,4 +1,4 @@
-package com.parallel;
+package com.parallel.baileyBorwainPlouffe;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -27,16 +27,14 @@ public class CalsPi {
         int s = 0;
         int k = Math.round(count*0.03f);
         
-
+        MathContext m = new MathContext(eps);
         for (int i = k; i < count; i += k) {
         
             
-            fList.add(ex.submit(new HelpCallPi(eps, s, i)));        
-            System.out.println(s+" "+i);
+            fList.add(ex.submit(new HelpCallPi(m, s, i)));        
             s=i;         
             
-            
-            
+           
             if(Math.round(k*0.1f) != 0){
                 k=Math.round(k - 3);
             }
