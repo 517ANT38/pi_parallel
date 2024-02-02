@@ -11,7 +11,7 @@ import java.util.concurrent.Future;
 public class AppParallel {
   public static void main(String[] args) throws InterruptedException, ExecutionException   {
     int tn = Runtime.getRuntime().availableProcessors() - 1;
-    long n = 99999999;
+    long n = 19991100;
     ExecutorService e = Executors.newFixedThreadPool(tn);
     List<Future<BigDecimal>> list = new ArrayList<>();
     int tmp = 0;
